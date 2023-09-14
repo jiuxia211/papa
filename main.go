@@ -15,7 +15,7 @@ func main() {
 	elapsed := end.Sub(start)
 	fmt.Printf("普通爬取运行时间：%s\n", elapsed)
 	start = time.Now()
-	fzu.PaFzu()
+	fzu.PaFzus()
 	end = time.Now()
 	elapsed = end.Sub(start)
 	fmt.Printf("并发爬取运行时间：%s\n", elapsed)
