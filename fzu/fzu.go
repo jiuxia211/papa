@@ -12,7 +12,7 @@ import (
 	"sync"
 )
 
-// 普通爬取
+// PaFzu 普通爬取
 func PaFzu() {
 	nextPageURL := "https://info22.fzu.edu.cn/lm_list.jsp?urltype=tree.TreeTempUrl&wbtreeid=1460"
 
@@ -46,7 +46,7 @@ func PaFzu() {
 
 }
 
-// 并发爬取
+// PaFzus 并发爬取
 func PaFzus() {
 	var wg sync.WaitGroup
 	sem := make(chan struct{}, 5) // 控制并发数为 5
@@ -130,6 +130,8 @@ func fetchHttp(URL string) (resp *http.Response) {
 	}
 	return resp
 }
+
+// 解析返回并存入数据库
 func parse(resp *http.Response) {
 	doc, err := goquery.NewDocumentFromReader(resp.Body)
 	if err != nil {
@@ -159,7 +161,7 @@ func parse(resp *http.Response) {
 			contentBuilder.WriteString(spanElement.Text())
 		})
 	})
-	//剔除一些空页面
+	// 剔除一些空页面
 	if titleBuilder.String() == "" || contentBuilder.String() == "" || dataBuilder.String() == "" {
 		return
 	} else {

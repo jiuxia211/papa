@@ -22,7 +22,7 @@ func Init() {
 		log.Fatal(err)
 	}
 	DB = db
-	err = DB.AutoMigrate(&News{})
+	err = DB.AutoMigrate(&News{}, &ParentReply{}, &ChildReply{})
 	if err != nil {
 		log.Fatal(err)
 	}
